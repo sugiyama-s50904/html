@@ -1,219 +1,841 @@
-<!doctype html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HTMLプログラミング学習</title><style>body {
+<!doctype html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes"><title>プログラミング</title><style>/* ==============================================
+           BASE STYLES - HTML・BODY・グローバル設定
+           ============================================== */
+        html {
+            height: 100%;
+            overflow-y: scroll;
+        }
+        
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #f7f3f0 0%, #f0ebe6 100%);
+            background-attachment: fixed;
             margin: 0;
-            padding: 20px;
-            min-height: 100vh;
+            padding: 0;
+            min-height: 400vh;
+            height: auto;
+            overflow-y: visible;
             display: flex;
             flex-direction: column;
         }
 
+        /* ==============================================
+           HEADER STYLES - ヘッダー・ロゴ・タイトル
+           ============================================== */
         .header {
             text-align: center;
-            color: white;
-            margin-bottom: 30px;
+            color: #5d4e37;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.8) 100%);
+            border-bottom: 3px solid rgba(212, 196, 176, 0.3);
+            box-shadow: 0 4px 15px rgba(93, 78, 55, 0.08);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            height: 100%;
+            min-height: 144px;
+        }
+
+        .header-logo {
+            height: calc(100% - 20px);
+            max-height: 144px;
+            width: auto;
+            object-fit: contain;
+            transform: scale(1.2);
         }
 
         .header h1 {
             font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(93, 78, 55, 0.1);
+            font-weight: 600;
         }
 
         .header p {
-            font-size: 1.1em;
-            opacity: 0.9;
+            font-size: 1.2em;
+            opacity: 0.8;
+            color: #6b5843;
         }
 
-        .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .chapters-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            max-width: 1000px;
-            width: 100%;
-        }
-
-        .chapter-item {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
+        /* ==============================================
+           INTRODUCTION SECTION - 紹介セクション
+           ============================================== */
+        .introduction-container {
+            max-width: 1200px;
+            margin: 30px auto 40px auto;
+            padding: 60px 20px;
+            min-height: 600px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 25px;
+            box-shadow: 0 12px 35px rgba(93, 78, 55, 0.15);
+            border: 3px solid rgba(212, 196, 176, 0.8);
             position: relative;
+        }
+
+        .introduction-container::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, rgba(212, 196, 176, 0.3), rgba(199, 178, 153, 0.3));
+            border-radius: 27px;
+            z-index: -1;
+        }
+
+        .introduction-container::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .intro-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .intro-text {
+            flex: 1;
             text-align: center;
         }
 
-        .chapter-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        .intro-text h2 {
+            font-size: 2.2em;
+            color: #5d4e37;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
 
-        .chapter-number {
-            background: #4f46e5;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        .intro-text > p {
+            font-size: 1.1em;
+            color: #6b5843;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Feature Items */
+        .features {
+            display: grid;
+            gap: 25px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 196, 176, 0.3);
+        }
+
+        .feature-item h3 {
+            margin: 0 0 8px 0;
+            color: #5d4e37;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .feature-item p {
+            margin: 0;
+            color: #6b5843;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        /* Images */
+        .intro-image {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-grid {
+            display: flex;
+            gap: 60px;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .intro-main-image {
+            width: 100%;
+            max-width: 455px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(93, 78, 55, 0.15);
+            object-fit: cover;
+            border: 3px solid rgba(232, 220, 198, 0.6);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(232, 220, 198, 0.05));
+            padding: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .intro-main-image:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(93, 78, 55, 0.2);
+            border-color: rgba(199, 178, 153, 0.8);
+        }
+
+        .image-fallback {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: linear-gradient(135deg, #e8dcc6, #d4c4b0);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 1.5em;
-            margin: 0 auto 15px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border: 2px dashed rgba(93, 78, 55, 0.3);
         }
 
-        .chapter-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 10px;
+        .placeholder-content {
+            text-align: center;
+            color: #9d8a6f;
         }
 
-        .chapter-description {
-            color: #6b7280;
-            font-size: 0.9em;
-            line-height: 1.5;
+        .placeholder-icon {
+            font-size: 3em;
             margin-bottom: 15px;
         }
 
-        .chapter-difficulty {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 500;
+        .placeholder-content p {
+            margin: 0 0 8px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #7a6b56;
         }
 
-        .difficulty-beginner {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .difficulty-intermediate {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .difficulty-advanced {
-            background: #fecaca;
-            color: #991b1b;
-        }
-
-        .completed {
+        .placeholder-content small {
+            font-size: 0.9em;
             opacity: 0.8;
-            border: 2px solid #10b981;
         }
 
-        .completed .chapter-number {
-            background: #10b981;
+        /* Intro Buttons */
+        .intro-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 60px;
+            margin-top: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .completed-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #10b981;
-            color: white;
-            padding: 3px 8px;
+        .intro-button {
+            flex: 1;
+            padding: 18px 40px;
+            border: none;
             border-radius: 12px;
-            font-size: 0.7em;
-            font-weight: bold;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: inherit;
+            box-shadow: 0 4px 15px rgba(93, 78, 55, 0.15);
+            min-width: 480px;
         }
 
+        .sample-button {
+            background: linear-gradient(135deg, #f5f1eb, #e8dcc6);
+            color: #8b6914;
+            border: 2px solid #c7b299;
+        }
+
+        .sample-button:hover {
+            background: linear-gradient(135deg, #e8dcc6, #d4c4b0);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 105, 20, 0.2);
+            border-color: #b3996b;
+        }
+
+        .guide-button {
+            background: linear-gradient(135deg, #f0ebe6, #e0d5c7);
+            color: #6b5843;
+            border: 2px solid #b8a082;
+        }
+
+        .guide-button:hover {
+            background: linear-gradient(135deg, #e0d5c7, #d0c0a3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 88, 67, 0.2);
+            border-color: #9d8a6f;
+        }
+
+        .button-icon {
+            font-size: 1.2em;
+        }
+
+        /* ==============================================
+           MODAL STYLES - 画像モーダル
+           ============================================== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            animation: zoomIn 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.5); }
+            to { transform: scale(1); }
+        }
+
+        /* ==============================================
+           CHAPTERS SECTION - チャプターセクション
+           ============================================== */
+        .chapters-title-section {
+            text-align: center;
+            margin: 40px 0 20px 0;
+        }
+
+        .chapters-title {
+            font-size: 3em;
+            font-weight: 700;
+            color: #5d4e37;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(93, 78, 55, 0.1);
+            letter-spacing: 3px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 60px 20px 80px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px 30px 0 0;
+            margin-top: 20px;
+            position: relative;
+            box-shadow: inset 0 4px 15px rgba(93, 78, 55, 0.05);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        .roadmap-container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+        }
+
+        .chapters-roadmap {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 60px;
+            padding: 60px 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        /* Chapter Rows */
+        .chapter-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            gap: 0;
+        }
+
+        /* ==============================================
+           CHAPTER ITEMS - チャプターカード
+           ============================================== */
+        .chapter-item {
+            background: linear-gradient(135deg, #fff, #f9f7f4);
+            border-radius: 25px;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            width: 1160px;
+            max-width: calc(100vw - 160px);
+            height: 230px;
+            border: 3px solid #e8dcc6;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+        }
+
+        .chapter-item:hover {
+            transform: translateY(-2px);
+            border-color: #d4c4b0;
+        }
+        
+        .chapter-content {
+            flex: 1;
+            padding: 50px 80px 50px 100px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chapter-subtitle {
+            font-size: 1.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Chapter Subtitle Colors */
+        .chapter-row:nth-child(1) .chapter-subtitle { color: #1976d2; }
+        .chapter-row:nth-child(2) .chapter-subtitle { color: #388e3c; }
+        .chapter-row:nth-child(3) .chapter-subtitle { color: #f57c00; }
+        .chapter-row:nth-child(4) .chapter-subtitle { color: #7b1fa2; }
+        .chapter-row:nth-child(5) .chapter-subtitle { color: #d32f2f; }
+        .chapter-row:nth-child(6) .chapter-subtitle { color: #00695c; }
+        .chapter-row:nth-child(7) .chapter-subtitle { color: #f57f17; }
+        
+        .chapter-item h3 {
+            margin: 0 0 20px 0;
+            font-size: 2.2em;
+            font-weight: 600;
+            color: #5d4e37;
+            line-height: 1.3;
+        }
+        
+        .chapter-item p {
+            margin: 0;
+            color: #6b5843;
+            font-size: 1.4em;
+            line-height: 1.5;
+        }
+
+        .chapter-image {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #e8dcc6, #d4c4b0);
+            margin: 25px 40px 25px 0px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9d8a6f;
+            font-size: 1.2em;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .chapter-number {
+            display: none;
+        }
+
+        .chapter-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #5d4e37;
+            margin: 25px 0 15px 0;
+            line-height: 1.3;
+        }
+
+        .chapter-description {
+            color: #6b5843;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* ==============================================
+           PDF BUTTONS - チャプター説明ボタン
+           ============================================== */
+        .pdf-button {
+            position: relative;
+            background: linear-gradient(135deg, #e8dcc6, #d4c4b0);
+            color: #6b5843;
+            text-decoration: none;
+            padding: 0;
+            border-radius: 25px;
+            font-size: 1.0em;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(93, 78, 55, 0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 200px;
+            width: 200px;
+            height: 230px;
+            justify-content: center;
+            margin: 0 0 0 20px;
+            border: 3px solid #c7b299;
+        }
+
+        .pdf-button:hover {
+            background: linear-gradient(135deg, #d4c4b0, #c7b299);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(93, 78, 55, 0.2);
+            border-color: #b3996b;
+        }
+
+        .pdf-button:active {
+            transform: translateY(0);
+        }
+
+        /* ==============================================
+           RESPONSIVE STYLES - レスポンシブ対応
+           ============================================== */
+
+        /* Tablet Styles (768px以下) */
         @media (max-width: 768px) {
-            .chapters-grid {
-                grid-template-columns: repeat(2, 1fr);
+            /* Header Responsive */
+            .header-content {
+                flex-direction: column;
                 gap: 15px;
+            }
+
+            .header-logo {
+                max-height: 96px;
+                height: calc(100% - 15px);
+                transform: scale(1.2);
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            /* Chapters Title */
+            .chapters-title {
+                font-size: 2.2em;
+                letter-spacing: 2px;
+            }
+
+            /* Introduction Container */
+            .introduction-container {
+                border-radius: 20px;
+                margin: 20px auto 30px auto;
+                border: 2px solid rgba(212, 196, 176, 0.8);
+            }
+
+            .introduction-container::before {
+                border-radius: 22px;
+            }
+
+            .container {
+                border-radius: 20px 20px 0 0;
+                margin-top: 10px;
+                padding: 40px 15px 60px 15px;
+            }
+
+            /* Intro Content */
+            .intro-content {
+                flex-direction: column;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .intro-text h2 {
+                font-size: 1.8em;
+            }
+
+            .image-grid {
+                gap: 15px;
+            }
+
+            .intro-main-image {
+                max-width: 280px;
+            }
+
+            /* Chapters */
+            .chapters-roadmap {
+                gap: 40px;
             }
             
             .chapter-item {
-                padding: 15px;
+                padding: 20px;
+                width: 280px;
+                height: 160px;
             }
             
             .chapter-number {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2em;
+                width: 40px;
+                height: 40px;
+                font-size: 1.4em;
             }
             
             .chapter-title {
-                font-size: 1em;
+                font-size: 1.1em;
             }
             
             .chapter-description {
+                font-size: 0.85em;
+            }
+            
+            .chapter-row:not(:last-child)::after {
+                height: 40px;
+                bottom: -20px;
+            }
+            
+            .chapter-row:nth-child(even):not(:last-child)::before,
+            .chapter-row:nth-child(odd):not(:last-child)::before {
+                bottom: -35px;
+            }
+
+            .pdf-button {
+                position: relative;
+                margin: 10px 0 0 10px;
+                min-width: 100px;
+                width: 100px;
+                height: 160px;
                 font-size: 0.8em;
+                padding: 0;
             }
         }
 
+        /* Mobile Styles (480px以下) */
         @media (max-width: 480px) {
-            .chapters-grid {
-                grid-template-columns: 1fr;
+            /* Header Mobile */
+            .header-logo {
+                max-height: 72px;
+                height: calc(100% - 10px);
+                transform: scale(1.2);
             }
-        }</style><script defer="defer" src="bundle.js"></script></head><body><div class="header"><h1>HTMLプログラミング学習</h1><p>ブロックを使ってWebページを作ろう</p></div><div class="container"><div class="chapters-grid" id="chaptersGrid"><div class="chapter-item" onclick="startChapter(1)"><div class="chapter-number">1</div><div class="chapter-title">診断サイトの基本の形をつくろう</div><div class="chapter-description">文章やボタンを追加し，診断サイトの基本の形をつくろう</div></div><div class="chapter-item" onclick="startChapter(2)"><div class="chapter-number">2</div><div class="chapter-title">回答をまとめる仕組みを作ろう</div><div class="chapter-description">回答をまとめる仕組みを作ろう</div></div><div class="chapter-item" onclick="startChapter(3)"><div class="chapter-number">3</div><div class="chapter-title">回答に応じた診断結果を表示させよう</div><div class="chapter-description">回答に応じた診断結果を表示させよう</div></div><div class="chapter-item" onclick="startChapter(4)"><div class="chapter-number">4</div><div class="chapter-title">画像を入れてみよう</div><div class="chapter-description">画像を入れてみよう</div></div><div class="chapter-item" onclick="startChapter(5)"><div class="chapter-number">5</div><div class="chapter-title">結果を集計する仕組みを作ろう</div><div class="chapter-description">結果を集計する仕組みを作ろう</div></div><div class="chapter-item" onclick="startChapter(6)"><div class="chapter-number">6</div><div class="chapter-title">完成系</div><div class="chapter-description">完成系</div></div></div></div><script>// チャプターデータ
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .chapters-title {
+                font-size: 1.8em;
+                letter-spacing: 1px;
+            }
+
+            /* Introduction Mobile */
+            .introduction-container {
+                border-radius: 15px;
+                margin: 15px auto 20px auto;
+                padding: 40px 15px;
+                border: 2px solid rgba(212, 196, 176, 0.8);
+            }
+
+            .introduction-container::before {
+                border-radius: 17px;
+            }
+
+            .container {
+                border-radius: 15px 15px 0 0;
+                margin-top: 5px;
+                padding: 30px 10px 50px 10px;
+            }
+
+            .intro-text h2 {
+                font-size: 1.5em;
+            }
+
+            .intro-text > p {
+                font-size: 1em;
+            }
+
+            .feature-item {
+                padding: 15px;
+            }
+
+            .image-grid {
+                gap: 10px;
+            }
+
+            .intro-main-image {
+                max-width: 220px;
+            }
+
+            /* Chapters Mobile */
+            .chapters-roadmap {
+                gap: 30px;
+            }
+            
+            .chapter-item {
+                width: 260px;
+                padding: 16px;
+                height: 140px;
+            }
+            
+            .chapter-row:nth-child(even) {
+                flex-direction: row;
+            }
+            
+            .chapter-row:not(:last-child)::after {
+                height: 30px;
+                bottom: -15px;
+            }
+
+            .pdf-button {
+                font-size: 0.75em;
+                padding: 0;
+                min-width: 80px;
+                width: 80px;
+                height: 140px;
+                margin: 10px 0 0 8px;
+            }
+        }</style><script defer="defer" src="bundle.js"></script></head><body><header class="header"><div class="header-content"><img src="logo.png" alt="ロゴ" class="header-logo" onerror="this.style.display='none';"></div></header><section class="introduction-container"><div class="intro-content"><div class="intro-text"><h2>ブロックでWEBコンテンツをつくろう</h2><p>このサイトでは、ブロックを組み合わせてWEBプログラミングの基礎を学習できます。診断サイトを作りながら、双方向性のあるコンテンツについて学んでいきましょう。</p></div><div class="intro-image"><div class="image-grid"><img src="about.png" alt="about.png" class="intro-main-image" onclick="openModal(this)" onerror="this.style.display='none';"> <img src="system.png" alt="system.png" class="intro-main-image" onclick="openModal(this)" onerror="this.style.display='none';"></div><div class="intro-buttons"><button class="intro-button sample-button" onclick="showSample()">サンプル</button> <button class="intro-button guide-button" onclick="showGuide()">操作説明</button></div></div></div></section><div id="imageModal" class="modal" onclick="closeModal()"><span class="close" onclick="closeModal()">&times;</span> <img class="modal-content" id="modalImage"></div><section class="chapters-title-section"><h2 class="chapters-title">Chapters</h2></section><main class="container"><nav class="roadmap-container"><ol class="chapters-roadmap"><li class="chapter-row"><button class="chapter-item" onclick="startChapter(1)"><span class="chapter-number">1</span><div class="chapter-content"><div class="chapter-subtitle">Chapter 1</div><h3 class="chapter-title">診断サイトの基本の形をつくろう</h3><p class="chapter-description">文章やボタンを追加し，診断サイトの基本の形をつくろう</p></div><div class="chapter-image"><img src="image.png" alt="Chapter 1 - 診断サイトの基本の形" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;" onerror="this.style.display='none'; this.parentElement.innerHTML='画像エリア';"></div></button> <a href="チャプター1.pdf" class="pdf-button" target="_blank"><span class="button-icon"></span> チャプターの説明</a></li><li class="chapter-row"><button class="chapter-item" onclick="startChapter(2)"><span class="chapter-number">2</span><div class="chapter-content"><div class="chapter-subtitle">Chapter 2</div><h3 class="chapter-title">回答をまとめる仕組みを作ろう</h3><p class="chapter-description">回答をまとめる仕組みを作ろう</p></div><div class="chapter-image"><img src="image2.png" alt="Chapter 2 - 回答をまとめる仕組みを作ろう" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;" onerror="this.style.display='none'; this.parentElement.innerHTML='画像エリア';"></div></button> <a href="チャプター2.pdf" class="pdf-button" target="_blank"><span class="button-icon"></span> チャプターの説明</a></li><li class="chapter-row"><button class="chapter-item" onclick="startChapter(3)"><span class="chapter-number">3</span><div class="chapter-content"><div class="chapter-subtitle">Chapter 3</div><h3 class="chapter-title">回答に応じた診断結果を表示させよう</h3><p class="chapter-description">回答に応じた診断結果を表示させよう</p></div><div class="chapter-image"><img src="image3.png" alt="Chapter 3 - 回答に応じた診断結果を表示させよう" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;" onerror="this.style.display='none'; this.parentElement.innerHTML='画像エリア';"></div></button> <a href="チャプター3.pdf" class="pdf-button" target="_blank"><span class="button-icon"></span> チャプターの説明</a></li><li class="chapter-row"><button class="chapter-item" onclick="startChapter(4)"><span class="chapter-number">4</span><div class="chapter-content"><div class="chapter-subtitle">Chapter 4</div><h3 class="chapter-title">画像を入れてみよう</h3><p class="chapter-description">画像を入れてみよう</p></div><div class="chapter-image"><img src="image4.png" alt="Chapter 3 - 回答に応じた診断結果を表示させよう" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;" onerror="this.style.display='none'; this.parentElement.innerHTML='画像エリア';"></div></button> <a href="チャプター4.pdf" class="pdf-button" target="_blank"><span class="button-icon"></span> チャプターの説明</a></li><li class="chapter-row"><button class="chapter-item" onclick="startChapter(5)"><span class="chapter-number">5</span><div class="chapter-content"><div class="chapter-subtitle">Chapter 5</div><h3 class="chapter-title">結果を集計する仕組みを作ろう</h3><p class="chapter-description">結果を集計する仕組みを作ろう</p></div><div class="chapter-image"><img src="image5.png" alt="Chapter 5 - 結果を集計する仕組みを作ろう" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;" onerror="this.style.display='none'; this.parentElement.innerHTML='画像エリア';"></div></button> <a href="チャプター5.pdf" class="pdf-button" target="_blank"><span class="button-icon"></span> チャプターの説明</a></li><li class="chapter-row"><button class="chapter-item" onclick="startChapter(6)"><span class="chapter-number">6</span><div class="chapter-content"><div class="chapter-subtitle">Chapter 6</div><h3 class="chapter-title">完成系</h3><p class="chapter-description">改造してみよう</p></div><div class="chapter-image"><img src="image6.png" alt="Chapter 6 - 完成系" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;" onerror="this.style.display='none'; this.parentElement.innerHTML='画像エリア';"></div></button> <a href="チャプター5.pdf" class="pdf-button" target="_blank"><span class="button-icon"></span> チャプターの説明</a></li><li class="chapter-row"><button class="chapter-item" onclick="startChapter(7)"><span class="chapter-number">7</span><div class="chapter-content"><div class="chapter-subtitle">Free Mode</div><h3 class="chapter-title">自由制作</h3><p class="chapter-description">自由にオリジナルの診断サイトを作ってみよう</p></div><div class="chapter-image"><img src="image7.png" alt="Chapter 7 - 自由制作" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;" onerror="this.style.display='none'; this.parentElement.innerHTML='画像エリア';"></div></button> <a href="チャプター5.pdf" class="pdf-button" target="_blank"><span class="button-icon"></span> チャプターの説明</a></li></ol></nav></main><script>// チャプターデータ（index.jsで定義されるものと同一）
         const chapters = [
-            {
-                id: 1,
-                title: "診断サイトの基本の形をつくろう",
-                description: "文章やボタンを追加し，診断サイトの基本の形をつくろう",
-                difficulty: "beginner",
-                progress: 0,
-                initialBlocks: {"html":{"blocks":{"languageVersion":0,"blocks":[{"type":"wrap_form_area","id":"3L1inM*wm2`k/X]*Ae{X","x":69,"y":169,"inputs":{"CONTENT":{"block":{"type":"wrap_question_area","id":"Q##p]K8a`5GH+sEbENQU","inputs":{"CONTENT":{"block":{"type":"p","id":"t+4}kW%4Ve:*uwU%B*5l","inputs":{"TEXT":{"block":{"type":"text","id":"gTBZHAdM7+_7tVak?}NF","fields":{"TEXT":"質問1"}}}},"next":{"block":{"type":"select","id":"%NHxdB9t?28M/:a0KG85","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":"+,L2UFWv,/cdEF`_qBo9","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"0","LABEL":"はい"}}}}}}}}}}},"next":{"block":{"type":"wrap_submit_button_value","id":"na;lgpxc_VmbUyUS=~5D","inputs":{"TEXT":{"block":{"type":"text","id":"bp+K;R2RAGd{uzj[%acc","fields":{"TEXT":"診断"}}}},"next":{"block":{"type":"wrap_result_area","id":"B}$POL;/!qCKwvuA^,Qv","inputs":{"CONTENT":{"block":{"type":"wrap_result","id":"G5]^wk/7LOvW{iHCSdm~","fields":{"NUM":1},"inputs":{"CONTENT":{"block":{"type":"p","id":"h}rH/r:Vl]i{0(jyB=%q","inputs":{"TEXT":{"block":{"type":"text","id":"INc#sn@@-pn,PuKmlDIU","fields":{"TEXT":"診断結果1"}}}}}}}}}}}}}}}]}},"css":{"blocks":{"languageVersion":0,"blocks":[{"type":"style_body_block","id":"*W#.=Afo)]@nr6Ml{oB`","x":84,"y":29,"fields":{"FONT_SIZE":32,"BG_COLOR":"#f4f4f4","TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_question_block","id":"CaCey+}T,O!G]7fH|J.%","fields":{"QUESTION_BG":"#ffffff","QP_FONT_SIZE":18,"QP_COLOR":"#000000","LABEL_FONT_SIZE":18,"LABEL_COLOR":"#000000"},"next":{"block":{"type":"style_submit_block","id":"(A+enfC:rJ2m+*c@EAlg","fields":{"FONT_SIZE":16,"BG_COLOR":"#4caf50","TEXT_COLOR":"#ffffff","HOVER_BG_COLOR":"#45a000"},"next":{"block":{"type":"style_result_block","id":"wY=H4t/j;bE-%soL}rpT","fields":{"BG_COLOR":"#FFFFCC","FONT_SIZE":18,"TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_myimg_block","id":",}iW)0Z+-{*rN)FmX}^+","fields":{"IMG_NUM":1}}}}}}}}}}]}},"js":{}}
-            },
-            {
-                id: 2,
-                title: "回答をまとめる仕組みを作ろう",
-                description: "回答をまとめる仕組みを作ろう",
-                difficulty: "beginner",
-                progress: 0,
-                initialBlocks: {"html":{"blocks":{"languageVersion":0,"blocks":[{"type":"wrap_form_area","id":"3L1inM*wm2`k/X]*Ae{X","x":85,"y":180,"inputs":{"CONTENT":{"block":{"type":"wrap_question_area","id":"Q##p]K8a`5GH+sEbENQU","inputs":{"CONTENT":{"block":{"type":"p","id":"t+4}kW%4Ve:*uwU%B*5l","inputs":{"TEXT":{"block":{"type":"text","id":"gTBZHAdM7+_7tVak?}NF","fields":{"TEXT":"質問1. 新しいことにチャレンジするのが好きですか？"}}}},"next":{"block":{"type":"select","id":"%NHxdB9t?28M/:a0KG85","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":"+,L2UFWv,/cdEF`_qBo9","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"0","LABEL":"いいえ"}}}}}}}},"next":{"block":{"type":"wrap_question_area","id":":~)~CRp205_XP@?D~eAQ","inputs":{"CONTENT":{"block":{"type":"p","id":"WCo}ZD/C!WOs$~vbdJ`z","inputs":{"TEXT":{"block":{"type":"text","id":"{1{-EPJcWO8$sM!_~1@v","fields":{"TEXT":"質問2. 周囲の人と協力するのが得意ですか？"}}}},"next":{"block":{"type":"select","id":"!}C5|v`0Z%@O}kqoXQFJ","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":":)|qTUfwWtrH?1}7U|)2","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"0","LABEL":"いいえ"}}}}}}}}}}}}},"next":{"block":{"type":"wrap_submit_button_value","id":"na;lgpxc_VmbUyUS=~5D","inputs":{"TEXT":{"block":{"type":"text","id":"bp+K;R2RAGd{uzj[%acc","fields":{"TEXT":"診断"}}}},"next":{"block":{"type":"wrap_result_area","id":"B}$POL;/!qCKwvuA^,Qv","inputs":{"CONTENT":{"block":{"type":"wrap_result","id":"G5]^wk/7LOvW{iHCSdm~","fields":{"NUM":1},"inputs":{"CONTENT":{"block":{"type":"p","id":"h}rH/r:Vl]i{0(jyB=%q","inputs":{"TEXT":{"block":{"type":"text","id":"INc#sn@@-pn,PuKmlDIU","fields":{"TEXT":"柔軟な自由人タイプ"}}}}}}},"next":{"block":{"type":"wrap_result","id":"o?@/Uxm97HH,G?2;O#]G","fields":{"NUM":2},"inputs":{"CONTENT":{"block":{"type":"p","id":"KEINBQ}K]I6HkO8NkE+3","inputs":{"TEXT":{"block":{"type":"text","id":"t))m,)AmoF%[rNw,iOm1","fields":{"TEXT":"協調を大事にする平和主義者"}}}}}}},"next":{"block":{"type":"wrap_result","id":"2Ha4h%,qgBeau]o-GG3L","fields":{"NUM":3},"inputs":{"CONTENT":{"block":{"type":"p","id":"D%oGXl=)dyKW3(!=HQrc","inputs":{"TEXT":{"block":{"type":"text","id":"H*Z^0[q%mT%wY93Ze26h","fields":{"TEXT":"リーダーシップのある調整役"}}}}}}},"next":{"block":{"type":"wrap_result","id":"++#]{!g.5Qu4obY,*FrI","fields":{"NUM":4},"inputs":{"CONTENT":{"block":{"type":"p","id":"=03]mNS#b;L9%HxOV6aY","inputs":{"TEXT":{"block":{"type":"text","id":"R+mEt,%M*gI~3{%SRaJz","fields":{"TEXT":"行動力のある実践家タイプ"}}}}}}}}}}}}}}}}}}}}}]}},"css":{"blocks":{"languageVersion":0,"blocks":[{"type":"style_body_block","id":"*W#.=Afo)]@nr6Ml{oB`","x":84,"y":29,"fields":{"FONT_SIZE":32,"BG_COLOR":"#f4f4f4","TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_question_block","id":"CaCey+}T,O!G]7fH|J.%","fields":{"QUESTION_BG":"#ffffff","QP_FONT_SIZE":18,"QP_COLOR":"#000000","LABEL_FONT_SIZE":18,"LABEL_COLOR":"#000000"},"next":{"block":{"type":"style_submit_block","id":"(A+enfC:rJ2m+*c@EAlg","fields":{"FONT_SIZE":16,"BG_COLOR":"#4caf50","TEXT_COLOR":"#ffffff","HOVER_BG_COLOR":"#45a000"},"next":{"block":{"type":"style_result_block","id":"wY=H4t/j;bE-%soL}rpT","fields":{"BG_COLOR":"#FFFFCC","FONT_SIZE":18,"TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_myimg_block","id":",}iW)0Z+-{*rN)FmX}^+","fields":{"IMG_NUM":1}}}}}}}}}}]}},"js":{"blocks":{"languageVersion":0,"blocks":[{"type":"on_submit_click","id":"9I99a4gpx[ye$5V^$wc7","x":72,"y":170},{"type":"dom_ready_block","id":"Z)UKWVWz#KY4R2uZCTXp","x":73,"y":63}]},"variables":[{"name":"q1","id":"St}GUM?7QwL#aN*-3$xB"},{"name":"q2","id":"BTd+g6B$mGSNLcYUgz+q"}]}}
-            },
-            {
-                id: 3,
-                title: "回答に応じた診断結果を表示させよう",
-                description: "回答に応じた診断結果を表示させよう",
-                difficulty: "beginner",
-                progress: 0,
-                initialBlocks:{"html":{"blocks":{"languageVersion":0,"blocks":[{"type":"wrap_form_area","id":"3L1inM*wm2`k/X]*Ae{X","x":46,"y":122,"inputs":{"CONTENT":{"block":{"type":"wrap_question_area","id":"Q##p]K8a`5GH+sEbENQU","inputs":{"CONTENT":{"block":{"type":"p","id":"t+4}kW%4Ve:*uwU%B*5l","inputs":{"TEXT":{"block":{"type":"text","id":"gTBZHAdM7+_7tVak?}NF","fields":{"TEXT":"質問1. 新しいことにチャレンジするのが好きですか？"}}}},"next":{"block":{"type":"select","id":"%NHxdB9t?28M/:a0KG85","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":"+,L2UFWv,/cdEF`_qBo9","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"0","LABEL":"いいえ"}}}}}}}},"next":{"block":{"type":"wrap_question_area","id":":~)~CRp205_XP@?D~eAQ","inputs":{"CONTENT":{"block":{"type":"p","id":"WCo}ZD/C!WOs$~vbdJ`z","inputs":{"TEXT":{"block":{"type":"text","id":"{1{-EPJcWO8$sM!_~1@v","fields":{"TEXT":"質問2. 周囲の人と協力するのが得意ですか？"}}}},"next":{"block":{"type":"select","id":"!}C5|v`0Z%@O}kqoXQFJ","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":":)|qTUfwWtrH?1}7U|)2","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"0","LABEL":"いいえ"}}}}}}}}}}}}},"next":{"block":{"type":"wrap_submit_button_value","id":"na;lgpxc_VmbUyUS=~5D","inputs":{"TEXT":{"block":{"type":"text","id":"bp+K;R2RAGd{uzj[%acc","fields":{"TEXT":"診断"}}}},"next":{"block":{"type":"wrap_result_area","id":"B}$POL;/!qCKwvuA^,Qv","inputs":{"CONTENT":{"block":{"type":"wrap_result","id":"G5]^wk/7LOvW{iHCSdm~","fields":{"NUM":1},"inputs":{"CONTENT":{"block":{"type":"p","id":"h}rH/r:Vl]i{0(jyB=%q","inputs":{"TEXT":{"block":{"type":"text","id":"INc#sn@@-pn,PuKmlDIU","fields":{"TEXT":"柔軟な自由人タイプ"}}}}}}},"next":{"block":{"type":"wrap_result","id":"o?@/Uxm97HH,G?2;O#]G","fields":{"NUM":2},"inputs":{"CONTENT":{"block":{"type":"p","id":"KEINBQ}K]I6HkO8NkE+3","inputs":{"TEXT":{"block":{"type":"text","id":"t))m,)AmoF%[rNw,iOm1","fields":{"TEXT":"協調を大事にする平和主義者"}}}}}}},"next":{"block":{"type":"wrap_result","id":"2Ha4h%,qgBeau]o-GG3L","fields":{"NUM":3},"inputs":{"CONTENT":{"block":{"type":"p","id":"D%oGXl=)dyKW3(!=HQrc","inputs":{"TEXT":{"block":{"type":"text","id":"H*Z^0[q%mT%wY93Ze26h","fields":{"TEXT":"リーダーシップのある調整役"}}}}}}},"next":{"block":{"type":"wrap_result","id":"++#]{!g.5Qu4obY,*FrI","fields":{"NUM":4},"inputs":{"CONTENT":{"block":{"type":"p","id":"=03]mNS#b;L9%HxOV6aY","inputs":{"TEXT":{"block":{"type":"text","id":"R+mEt,%M*gI~3{%SRaJz","fields":{"TEXT":"行動力のある実践家タイプ"}}}}}}}}}}}}}}}}}}}}}]}},"css":{"blocks":{"languageVersion":0,"blocks":[{"type":"style_body_block","id":"*W#.=Afo)]@nr6Ml{oB`","x":84,"y":29,"fields":{"FONT_SIZE":32,"BG_COLOR":"#f4f4f4","TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_question_block","id":"CaCey+}T,O!G]7fH|J.%","fields":{"QUESTION_BG":"#ffffff","QP_FONT_SIZE":18,"QP_COLOR":"#000000","LABEL_FONT_SIZE":18,"LABEL_COLOR":"#000000"},"next":{"block":{"type":"style_submit_block","id":"(A+enfC:rJ2m+*c@EAlg","fields":{"FONT_SIZE":16,"BG_COLOR":"#4caf50","TEXT_COLOR":"#ffffff","HOVER_BG_COLOR":"#45a000"},"next":{"block":{"type":"style_result_block","id":"wY=H4t/j;bE-%soL}rpT","fields":{"BG_COLOR":"#FFFFCC","FONT_SIZE":18,"TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_myimg_block","id":",}iW)0Z+-{*rN)FmX}^+","fields":{"IMG_NUM":1}}}}}}}}}}]}},"js":{"blocks":{"languageVersion":0,"blocks":[{"type":"on_submit_click","id":"9I99a4gpx[ye$5V^$wc7","x":80,"y":187,"inputs":{"HANDLER":{"block":{"type":"variables_set","id":"5q,vziy^uR+@|aJc]TTq","fields":{"VAR":{"id":"St}GUM?7QwL#aN*-3$xB"}},"inputs":{"VALUE":{"block":{"type":"var_querySelector","id":"0BqnN}JrJ@07((m_5$lJ","fields":{"NUM":1}}}},"next":{"block":{"type":"variables_set","id":"t#n2BIe;)h;s70J]j~P{","fields":{"VAR":{"id":"BTd+g6B$mGSNLcYUgz+q"}},"inputs":{"VALUE":{"block":{"type":"var_querySelector","id":",^2K^H.f~1ocSiy^pcA]","fields":{"NUM":2}}}},"next":{"block":{"type":"concat_variables","id":"}m8L?JL4{@u+}zvuU%6W","inputs":{"ITEMS":{"block":{"type":"concat_item","id":"AF0qbwKmW?y7AlG!KeDy","inputs":{"VALUE":{"block":{"type":"variables_get","id":"s}d`@hAUADOmAm.X:Y+n","fields":{"VAR":{"id":"St}GUM?7QwL#aN*-3$xB"}}}}},"next":{"block":{"type":"concat_item","id":"%@|Gk:|/=}=6bldIP?xT","inputs":{"VALUE":{"block":{"type":"variables_get","id":"/]X@s_dU9@{2.lyiVA]-","fields":{"VAR":{"id":"BTd+g6B$mGSNLcYUgz+q"}}}}}}}}}},"next":{"block":{"type":"js_alert","id":"CBOosi*xL/XusLZ3p|Yp","inputs":{"TEXT":{"block":{"type":"answer_variable","id":"D;00b!z+r`!mqE?*3Vs`"}}}}}}}}}}}}},{"type":"dom_ready_block","id":"Z)UKWVWz#KY4R2uZCTXp","x":83,"y":82}]},"variables":[{"name":"q1","id":"St}GUM?7QwL#aN*-3$xB"},{"name":"q2","id":"BTd+g6B$mGSNLcYUgz+q"}]}}
-            },
-            {
-                id: 4,
-                title: "画像を入れてみよう",
-                description: "画像を入れてみよう",
-                difficulty: "intermediate",
-                progress: 0,
-                initialBlocks:{"html":{"blocks":{"languageVersion":0,"blocks":[{"type":"wrap_form_area","id":"3L1inM*wm2`k/X]*Ae{X","x":46,"y":122,"inputs":{"CONTENT":{"block":{"type":"wrap_question_area","id":"Q##p]K8a`5GH+sEbENQU","inputs":{"CONTENT":{"block":{"type":"p","id":"t+4}kW%4Ve:*uwU%B*5l","inputs":{"TEXT":{"block":{"type":"text","id":"gTBZHAdM7+_7tVak?}NF","fields":{"TEXT":"質問1. 新しいことにチャレンジするのが好きですか？"}}}},"next":{"block":{"type":"select","id":"%NHxdB9t?28M/:a0KG85","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":"+,L2UFWv,/cdEF`_qBo9","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"0","LABEL":"いいえ"}}}}}}}},"next":{"block":{"type":"wrap_question_area","id":":~)~CRp205_XP@?D~eAQ","inputs":{"CONTENT":{"block":{"type":"p","id":"WCo}ZD/C!WOs$~vbdJ`z","inputs":{"TEXT":{"block":{"type":"text","id":"{1{-EPJcWO8$sM!_~1@v","fields":{"TEXT":"質問2. 周囲の人と協力するのが得意ですか？"}}}},"next":{"block":{"type":"select","id":"!}C5|v`0Z%@O}kqoXQFJ","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":":)|qTUfwWtrH?1}7U|)2","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"0","LABEL":"いいえ"}}}}}}}}}}}}},"next":{"block":{"type":"wrap_submit_button_value","id":"na;lgpxc_VmbUyUS=~5D","inputs":{"TEXT":{"block":{"type":"text","id":"bp+K;R2RAGd{uzj[%acc","fields":{"TEXT":"診断"}}}},"next":{"block":{"type":"wrap_result_area","id":"B}$POL;/!qCKwvuA^,Qv","inputs":{"CONTENT":{"block":{"type":"wrap_result","id":"G5]^wk/7LOvW{iHCSdm~","fields":{"NUM":1},"inputs":{"CONTENT":{"block":{"type":"p","id":"h}rH/r:Vl]i{0(jyB=%q","inputs":{"TEXT":{"block":{"type":"text","id":"INc#sn@@-pn,PuKmlDIU","fields":{"TEXT":"柔軟な自由人タイプ"}}}}}}},"next":{"block":{"type":"wrap_result","id":"o?@/Uxm97HH,G?2;O#]G","fields":{"NUM":2},"inputs":{"CONTENT":{"block":{"type":"p","id":"KEINBQ}K]I6HkO8NkE+3","inputs":{"TEXT":{"block":{"type":"text","id":"t))m,)AmoF%[rNw,iOm1","fields":{"TEXT":"協調を大事にする平和主義者"}}}}}}},"next":{"block":{"type":"wrap_result","id":"2Ha4h%,qgBeau]o-GG3L","fields":{"NUM":3},"inputs":{"CONTENT":{"block":{"type":"p","id":"D%oGXl=)dyKW3(!=HQrc","inputs":{"TEXT":{"block":{"type":"text","id":"H*Z^0[q%mT%wY93Ze26h","fields":{"TEXT":"リーダーシップのある調整役"}}}}}}},"next":{"block":{"type":"wrap_result","id":"++#]{!g.5Qu4obY,*FrI","fields":{"NUM":4},"inputs":{"CONTENT":{"block":{"type":"p","id":"=03]mNS#b;L9%HxOV6aY","inputs":{"TEXT":{"block":{"type":"text","id":"R+mEt,%M*gI~3{%SRaJz","fields":{"TEXT":"行動力のある実践家タイプ"}}}}}}}}}}}}}}}}}}}}}]}},"css":{"blocks":{"languageVersion":0,"blocks":[{"type":"style_body_block","id":"*W#.=Afo)]@nr6Ml{oB`","x":84,"y":29,"fields":{"FONT_SIZE":32,"BG_COLOR":"#f4f4f4","TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_question_block","id":"CaCey+}T,O!G]7fH|J.%","fields":{"QUESTION_BG":"#ffffff","QP_FONT_SIZE":18,"QP_COLOR":"#000000","LABEL_FONT_SIZE":18,"LABEL_COLOR":"#000000"},"next":{"block":{"type":"style_submit_block","id":"(A+enfC:rJ2m+*c@EAlg","fields":{"FONT_SIZE":16,"BG_COLOR":"#4caf50","TEXT_COLOR":"#ffffff","HOVER_BG_COLOR":"#45a000"},"next":{"block":{"type":"style_result_block","id":"wY=H4t/j;bE-%soL}rpT","fields":{"BG_COLOR":"#FFFFCC","FONT_SIZE":18,"TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_myimg_block","id":",}iW)0Z+-{*rN)FmX}^+","fields":{"IMG_NUM":1}}}}}}}}}}]}},"js":{"blocks":{"languageVersion":0,"blocks":[{"type":"on_submit_click","id":"9I99a4gpx[ye$5V^$wc7","x":80,"y":187,"inputs":{"HANDLER":{"block":{"type":"hide_result_elements","id":"s@p_J%5xvaX?{lMp(kO8","next":{"block":{"type":"variables_set","id":"5q,vziy^uR+@|aJc]TTq","fields":{"VAR":{"id":"St}GUM?7QwL#aN*-3$xB"}},"inputs":{"VALUE":{"block":{"type":"var_querySelector","id":"0BqnN}JrJ@07((m_5$lJ","fields":{"NUM":1}}}},"next":{"block":{"type":"variables_set","id":"t#n2BIe;)h;s70J]j~P{","fields":{"VAR":{"id":"BTd+g6B$mGSNLcYUgz+q"}},"inputs":{"VALUE":{"block":{"type":"var_querySelector","id":",^2K^H.f~1ocSiy^pcA]","fields":{"NUM":2}}}},"next":{"block":{"type":"concat_variables","id":"}m8L?JL4{@u+}zvuU%6W","inputs":{"ITEMS":{"block":{"type":"concat_item","id":"AF0qbwKmW?y7AlG!KeDy","inputs":{"VALUE":{"block":{"type":"variables_get","id":"s}d`@hAUADOmAm.X:Y+n","fields":{"VAR":{"id":"St}GUM?7QwL#aN*-3$xB"}}}}},"next":{"block":{"type":"concat_item","id":"%@|Gk:|/=}=6bldIP?xT","inputs":{"VALUE":{"block":{"type":"variables_get","id":"/]X@s_dU9@{2.lyiVA]-","fields":{"VAR":{"id":"BTd+g6B$mGSNLcYUgz+q"}}}}}}}}}},"next":{"block":{"type":"custom_if","id":"oKy4};_U@SJ:+st|YYSw","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":")da-j3,1xfT8#jJCxf_,","fields":{"TEXT":"00"}}},"DO":{"block":{"type":"get_result_element","id":"mGJ2aK}}k*ZO/W~~lxCC","fields":{"IDNUM":1}}}},"next":{"block":{"type":"custom_if","id":"rZHwlM]ztXZ=%PR=KW[U","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"QTQC,=]+QWuNw?fiZ|A*","fields":{"TEXT":"01"}}},"DO":{"block":{"type":"get_result_element","id":"?t}p9S+Vro-6o^_j:Ajb","fields":{"IDNUM":2}}}},"next":{"block":{"type":"custom_if","id":"GnOXIofQLS3DkU8$F+5n","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"g2W:b3ufz_n,6.#Eu$*j","fields":{"TEXT":"10"}}},"DO":{"block":{"type":"get_result_element","id":"_s+4;28r$24~UJq61{=@","fields":{"IDNUM":3}}}},"next":{"block":{"type":"custom_if","id":"Bx(coHG-C{ME#4I*fl;/","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"qM+W;`b(D-9IQ1.mU@og","fields":{"TEXT":"11"}}},"DO":{"block":{"type":"get_result_element","id":"zegCV*4pkEY##S3e~.;J","fields":{"IDNUM":4}}}}}}}}}}}}}}}}}}}}}},{"type":"dom_ready_block","id":"Z)UKWVWz#KY4R2uZCTXp","x":83,"y":82,"inputs":{"HANDLER":{"block":{"type":"hide_result_elements","id":"9V,.!%Vn^vH=K?f;!7-q"}}}}]},"variables":[{"name":"q1","id":"St}GUM?7QwL#aN*-3$xB"},{"name":"q2","id":"BTd+g6B$mGSNLcYUgz+q"}]}}
-            },
-            {
-                id: 5,
-                title: "結果を集計する仕組みを作ろう",
-                description: "結果を集計する仕組みを作ろう",
-                difficulty: "intermediate",
-                progress: 0,
-                initialBlocks: {"html":{"blocks":{"languageVersion":0,"blocks":[{"type":"wrap_form_area","id":"3L1inM*wm2`k/X]*Ae{X","x":64,"y":28,"inputs":{"CONTENT":{"block":{"type":"wrap_question_area","id":"Q##p]K8a`5GH+sEbENQU","inputs":{"CONTENT":{"block":{"type":"p","id":"t+4}kW%4Ve:*uwU%B*5l","inputs":{"TEXT":{"block":{"type":"text","id":"gTBZHAdM7+_7tVak?}NF","fields":{"TEXT":"質問1. 新しいことにチャレンジするのが好きですか？"}}}},"next":{"block":{"type":"select","id":"%NHxdB9t?28M/:a0KG85","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":"+,L2UFWv,/cdEF`_qBo9","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"0","LABEL":"いいえ"},"next":{"block":{"type":"image_from_drive","id":"0?l%CCM#L!zIJf@YorPF","fields":{"IMG_ID":"1","IMG_URL":"1WwtJjmSE3TtUAHxUWtdXLmJ3InWUpzS-"}}}}}}}}}},"next":{"block":{"type":"wrap_question_area","id":":~)~CRp205_XP@?D~eAQ","inputs":{"CONTENT":{"block":{"type":"p","id":"WCo}ZD/C!WOs$~vbdJ`z","inputs":{"TEXT":{"block":{"type":"text","id":"{1{-EPJcWO8$sM!_~1@v","fields":{"TEXT":"質問2. 周囲の人と協力するのが得意ですか？"}}}},"next":{"block":{"type":"select","id":"!}C5|v`0Z%@O}kqoXQFJ","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":":)|qTUfwWtrH?1}7U|)2","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"0","LABEL":"いいえ"},"next":{"block":{"type":"image_from_drive","id":"G.+o.AQo|0U9fXw][*(P","fields":{"IMG_ID":"1","IMG_URL":"1z7aCiTmNf-rtUTmVGuDFAalNmQUP8Pxq"}}}}}}}}}}}}}}},"next":{"block":{"type":"wrap_submit_button_value","id":"na;lgpxc_VmbUyUS=~5D","inputs":{"TEXT":{"block":{"type":"text","id":"bp+K;R2RAGd{uzj[%acc","fields":{"TEXT":"診断"}}}},"next":{"block":{"type":"wrap_result_area","id":"B}$POL;/!qCKwvuA^,Qv","inputs":{"CONTENT":{"block":{"type":"wrap_result","id":"G5]^wk/7LOvW{iHCSdm~","fields":{"NUM":1},"inputs":{"CONTENT":{"block":{"type":"p","id":"h}rH/r:Vl]i{0(jyB=%q","inputs":{"TEXT":{"block":{"type":"text","id":"INc#sn@@-pn,PuKmlDIU","fields":{"TEXT":"柔軟な自由人タイプ"}}}},"next":{"block":{"type":"image_from_drive","id":"V5W/R.{@TsuPs28AAUL0","fields":{"IMG_ID":"1","IMG_URL":"1MOG2epcgAnuyBLqBNhXXo-FQcR-uTJGN"}}}}}},"next":{"block":{"type":"wrap_result","id":"o?@/Uxm97HH,G?2;O#]G","fields":{"NUM":2},"inputs":{"CONTENT":{"block":{"type":"p","id":"KEINBQ}K]I6HkO8NkE+3","inputs":{"TEXT":{"block":{"type":"text","id":"t))m,)AmoF%[rNw,iOm1","fields":{"TEXT":"協調を大事にする平和主義者"}}}},"next":{"block":{"type":"image_from_drive","id":"n`7DI$,bPttc#SWu4eFT","fields":{"IMG_ID":"1","IMG_URL":"1jOq_lnBnNqBjy9mSFcCo4SWiwl199Axl"}}}}}},"next":{"block":{"type":"wrap_result","id":"2Ha4h%,qgBeau]o-GG3L","fields":{"NUM":3},"inputs":{"CONTENT":{"block":{"type":"p","id":"D%oGXl=)dyKW3(!=HQrc","inputs":{"TEXT":{"block":{"type":"text","id":"H*Z^0[q%mT%wY93Ze26h","fields":{"TEXT":"リーダーシップのある調整役"}}}},"next":{"block":{"type":"image_from_drive","id":"pAlTF4A9YK_$e{v;rRqk","fields":{"IMG_ID":"1","IMG_URL":"1-yHy44JwpLabZfyy4-X_R5YheYNCc9Jx"}}}}}},"next":{"block":{"type":"wrap_result","id":"++#]{!g.5Qu4obY,*FrI","fields":{"NUM":4},"inputs":{"CONTENT":{"block":{"type":"p","id":"=03]mNS#b;L9%HxOV6aY","inputs":{"TEXT":{"block":{"type":"text","id":"R+mEt,%M*gI~3{%SRaJz","fields":{"TEXT":"行動力のある実践家タイプ"}}}},"next":{"block":{"type":"image_from_drive","id":"GmbhxJ.luH_/N3tw=XT;","fields":{"IMG_ID":"1","IMG_URL":"1hh_ynjWDo4kVIxU10fFA2kdb_QWNCkHD"}}}}}}}}}}}}}}}}}}}}]}},"css":{"blocks":{"languageVersion":0,"blocks":[{"type":"style_body_block","id":"*W#.=Afo)]@nr6Ml{oB`","x":84,"y":29,"fields":{"FONT_SIZE":32,"BG_COLOR":"#f4f4f4","TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_question_block","id":"CaCey+}T,O!G]7fH|J.%","fields":{"QUESTION_BG":"#ffffff","QP_FONT_SIZE":18,"QP_COLOR":"#000000","LABEL_FONT_SIZE":18,"LABEL_COLOR":"#000000"},"next":{"block":{"type":"style_submit_block","id":"(A+enfC:rJ2m+*c@EAlg","fields":{"FONT_SIZE":16,"BG_COLOR":"#4caf50","TEXT_COLOR":"#ffffff","HOVER_BG_COLOR":"#45a000"},"next":{"block":{"type":"style_result_block","id":"wY=H4t/j;bE-%soL}rpT","fields":{"BG_COLOR":"#FFFFCC","FONT_SIZE":18,"TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_myimg_block","id":",}iW)0Z+-{*rN)FmX}^+","fields":{"IMG_NUM":1}}}}}}}}}}]}},"js":{"blocks":{"languageVersion":0,"blocks":[{"type":"on_submit_click","id":"9I99a4gpx[ye$5V^$wc7","x":80,"y":187,"inputs":{"HANDLER":{"block":{"type":"hide_result_elements","id":"s@p_J%5xvaX?{lMp(kO8","next":{"block":{"type":"variables_set","id":"5q,vziy^uR+@|aJc]TTq","fields":{"VAR":{"id":"St}GUM?7QwL#aN*-3$xB"}},"inputs":{"VALUE":{"block":{"type":"var_querySelector","id":"0BqnN}JrJ@07((m_5$lJ","fields":{"NUM":1}}}},"next":{"block":{"type":"variables_set","id":"t#n2BIe;)h;s70J]j~P{","fields":{"VAR":{"id":"BTd+g6B$mGSNLcYUgz+q"}},"inputs":{"VALUE":{"block":{"type":"var_querySelector","id":",^2K^H.f~1ocSiy^pcA]","fields":{"NUM":2}}}},"next":{"block":{"type":"concat_variables","id":"}m8L?JL4{@u+}zvuU%6W","inputs":{"ITEMS":{"block":{"type":"concat_item","id":"AF0qbwKmW?y7AlG!KeDy","inputs":{"VALUE":{"block":{"type":"variables_get","id":"s}d`@hAUADOmAm.X:Y+n","fields":{"VAR":{"id":"St}GUM?7QwL#aN*-3$xB"}}}}},"next":{"block":{"type":"concat_item","id":"%@|Gk:|/=}=6bldIP?xT","inputs":{"VALUE":{"block":{"type":"variables_get","id":"/]X@s_dU9@{2.lyiVA]-","fields":{"VAR":{"id":"BTd+g6B$mGSNLcYUgz+q"}}}}}}}}}},"next":{"block":{"type":"custom_if","id":"oKy4};_U@SJ:+st|YYSw","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":")da-j3,1xfT8#jJCxf_,","fields":{"TEXT":"00"}}},"DO":{"block":{"type":"get_result_element","id":"mGJ2aK}}k*ZO/W~~lxCC","fields":{"IDNUM":1}}}},"next":{"block":{"type":"custom_if","id":"rZHwlM]ztXZ=%PR=KW[U","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"QTQC,=]+QWuNw?fiZ|A*","fields":{"TEXT":"01"}}},"DO":{"block":{"type":"get_result_element","id":"?t}p9S+Vro-6o^_j:Ajb","fields":{"IDNUM":2}}}},"next":{"block":{"type":"custom_if","id":"GnOXIofQLS3DkU8$F+5n","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"g2W:b3ufz_n,6.#Eu$*j","fields":{"TEXT":"10"}}},"DO":{"block":{"type":"get_result_element","id":"_s+4;28r$24~UJq61{=@","fields":{"IDNUM":3}}}},"next":{"block":{"type":"custom_if","id":"Bx(coHG-C{ME#4I*fl;/","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"qM+W;`b(D-9IQ1.mU@og","fields":{"TEXT":"11"}}},"DO":{"block":{"type":"get_result_element","id":"zegCV*4pkEY##S3e~.;J","fields":{"IDNUM":4}}}}}}}}}}}}}}}}}}}}}},{"type":"dom_ready_block","id":"Z)UKWVWz#KY4R2uZCTXp","x":83,"y":82,"inputs":{"HANDLER":{"block":{"type":"hide_result_elements","id":"9V,.!%Vn^vH=K?f;!7-q"}}}}]},"variables":[{"name":"q1","id":"St}GUM?7QwL#aN*-3$xB"},{"name":"q2","id":"BTd+g6B$mGSNLcYUgz+q"}]}}
-            },
-            {
-                id: 6,
-                title: "完成系",
-                description: "改造してみよう",
-                difficulty: "advanced",
-                progress: 0,
-                initialBlocks:{"html":{"blocks":{"languageVersion":0,"blocks":[{"type":"wrap_form_area","id":"3L1inM*wm2`k/X]*Ae{X","x":-92,"y":7,"inputs":{"CONTENT":{"block":{"type":"wrap_question_area","id":"yQHqZ;0w``0kdO+yv5?p","inputs":{"CONTENT":{"block":{"type":"p","id":"#MuEBaz}dYA{ihi?4oh,","inputs":{"TEXT":{"block":{"type":"text","id":"}bNS.DcY`:jS4!e2Qrq0","fields":{"TEXT":"名前"}}}},"next":{"block":{"type":"input_text_numbered","id":"lkr~JsFEp/rns)QfLCMO","fields":{"NUM":1}}}}}},"next":{"block":{"type":"wrap_question_area","id":"Q##p]K8a`5GH+sEbENQU","inputs":{"CONTENT":{"block":{"type":"p","id":"t+4}kW%4Ve:*uwU%B*5l","inputs":{"TEXT":{"block":{"type":"text","id":"gTBZHAdM7+_7tVak?}NF","fields":{"TEXT":"質問1. 新しいことにチャレンジするのが好きですか？"}}}},"next":{"block":{"type":"select","id":"%NHxdB9t?28M/:a0KG85","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":"+,L2UFWv,/cdEF`_qBo9","fields":{"INPUT_TYPE":"radio","NUM":1,"VALUE":"0","LABEL":"いいえ"},"next":{"block":{"type":"image_from_drive","id":"0?l%CCM#L!zIJf@YorPF","fields":{"IMG_ID":"1","IMG_URL":"1WwtJjmSE3TtUAHxUWtdXLmJ3InWUpzS-"}}}}}}}}}},"next":{"block":{"type":"wrap_question_area","id":":~)~CRp205_XP@?D~eAQ","inputs":{"CONTENT":{"block":{"type":"p","id":"WCo}ZD/C!WOs$~vbdJ`z","inputs":{"TEXT":{"block":{"type":"text","id":"{1{-EPJcWO8$sM!_~1@v","fields":{"TEXT":"質問2. 周囲の人と協力するのが得意ですか？"}}}},"next":{"block":{"type":"select","id":"!}C5|v`0Z%@O}kqoXQFJ","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"1","LABEL":"はい"},"next":{"block":{"type":"select","id":":)|qTUfwWtrH?1}7U|)2","fields":{"INPUT_TYPE":"radio","NUM":2,"VALUE":"0","LABEL":"いいえ"},"next":{"block":{"type":"image_from_drive","id":"G.+o.AQo|0U9fXw][*(P","fields":{"IMG_ID":"1","IMG_URL":"1z7aCiTmNf-rtUTmVGuDFAalNmQUP8Pxq"}}}}}}}}}}}}}}}}},"next":{"block":{"type":"wrap_submit_button_value","id":"na;lgpxc_VmbUyUS=~5D","inputs":{"TEXT":{"block":{"type":"text","id":"bp+K;R2RAGd{uzj[%acc","fields":{"TEXT":"診断"}}}},"next":{"block":{"type":"wrap_result_area","id":"B}$POL;/!qCKwvuA^,Qv","inputs":{"CONTENT":{"block":{"type":"wrap_result","id":"G5]^wk/7LOvW{iHCSdm~","fields":{"NUM":1},"inputs":{"CONTENT":{"block":{"type":"p","id":"h}rH/r:Vl]i{0(jyB=%q","inputs":{"TEXT":{"block":{"type":"text","id":"INc#sn@@-pn,PuKmlDIU","fields":{"TEXT":"柔軟な自由人タイプ"}}}},"next":{"block":{"type":"image_from_drive","id":"V5W/R.{@TsuPs28AAUL0","fields":{"IMG_ID":"1","IMG_URL":"1MOG2epcgAnuyBLqBNhXXo-FQcR-uTJGN"}}}}}},"next":{"block":{"type":"wrap_result","id":"o?@/Uxm97HH,G?2;O#]G","fields":{"NUM":2},"inputs":{"CONTENT":{"block":{"type":"p","id":"KEINBQ}K]I6HkO8NkE+3","inputs":{"TEXT":{"block":{"type":"text","id":"t))m,)AmoF%[rNw,iOm1","fields":{"TEXT":"協調を大事にする平和主義者"}}}},"next":{"block":{"type":"image_from_drive","id":"n`7DI$,bPttc#SWu4eFT","fields":{"IMG_ID":"1","IMG_URL":"1jOq_lnBnNqBjy9mSFcCo4SWiwl199Axl"}}}}}},"next":{"block":{"type":"wrap_result","id":"2Ha4h%,qgBeau]o-GG3L","fields":{"NUM":3},"inputs":{"CONTENT":{"block":{"type":"p","id":"D%oGXl=)dyKW3(!=HQrc","inputs":{"TEXT":{"block":{"type":"text","id":"H*Z^0[q%mT%wY93Ze26h","fields":{"TEXT":"リーダーシップのある調整役"}}}},"next":{"block":{"type":"image_from_drive","id":"pAlTF4A9YK_$e{v;rRqk","fields":{"IMG_ID":"1","IMG_URL":"1-yHy44JwpLabZfyy4-X_R5YheYNCc9Jx"}}}}}},"next":{"block":{"type":"wrap_result","id":"++#]{!g.5Qu4obY,*FrI","fields":{"NUM":4},"inputs":{"CONTENT":{"block":{"type":"p","id":"=03]mNS#b;L9%HxOV6aY","inputs":{"TEXT":{"block":{"type":"text","id":"R+mEt,%M*gI~3{%SRaJz","fields":{"TEXT":"行動力のある実践家タイプ"}}}},"next":{"block":{"type":"image_from_drive","id":"GmbhxJ.luH_/N3tw=XT;","fields":{"IMG_ID":"1","IMG_URL":"1hh_ynjWDo4kVIxU10fFA2kdb_QWNCkHD"}}}}}}}}}}}}}}}}}}}}]}},"css":{"blocks":{"languageVersion":0,"blocks":[{"type":"style_body_block","id":"*W#.=Afo)]@nr6Ml{oB`","x":84,"y":29,"fields":{"FONT_SIZE":32,"BG_COLOR":"#f4f4f4","TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_question_block","id":"CaCey+}T,O!G]7fH|J.%","fields":{"QUESTION_BG":"#ffffff","QP_FONT_SIZE":18,"QP_COLOR":"#000000","LABEL_FONT_SIZE":18,"LABEL_COLOR":"#000000"},"next":{"block":{"type":"style_submit_block","id":"(A+enfC:rJ2m+*c@EAlg","fields":{"FONT_SIZE":16,"BG_COLOR":"#4caf50","TEXT_COLOR":"#ffffff","HOVER_BG_COLOR":"#45a000"},"next":{"block":{"type":"style_result_block","id":"wY=H4t/j;bE-%soL}rpT","fields":{"BG_COLOR":"#FFFFCC","FONT_SIZE":18,"TEXT_COLOR":"#000000"},"next":{"block":{"type":"style_myimg_block","id":",}iW)0Z+-{*rN)FmX}^+","fields":{"IMG_NUM":1}}}}}}}}}}]}},"js":{"blocks":{"languageVersion":0,"blocks":[{"type":"on_submit_click","id":"9I99a4gpx[ye$5V^$wc7","x":80,"y":187,"inputs":{"HANDLER":{"block":{"type":"hide_result_elements","id":"s@p_J%5xvaX?{lMp(kO8","next":{"block":{"type":"variables_set","id":"[k^UIOJ/0]T!M:=A63x%","fields":{"VAR":{"id":"ORnT{0$BtVzK8VJ~OLA-"}},"inputs":{"VALUE":{"block":{"type":"textbox_value_by_number","id":"qi/V4l%:%{LRi{uLLu:J","fields":{"NUM":1}}}},"next":{"block":{"type":"variables_set","id":"5q,vziy^uR+@|aJc]TTq","fields":{"VAR":{"id":"St}GUM?7QwL#aN*-3$xB"}},"inputs":{"VALUE":{"block":{"type":"var_querySelector","id":"0BqnN}JrJ@07((m_5$lJ","fields":{"NUM":1}}}},"next":{"block":{"type":"variables_set","id":"t#n2BIe;)h;s70J]j~P{","fields":{"VAR":{"id":"BTd+g6B$mGSNLcYUgz+q"}},"inputs":{"VALUE":{"block":{"type":"var_querySelector","id":",^2K^H.f~1ocSiy^pcA]","fields":{"NUM":2}}}},"next":{"block":{"type":"concat_variables","id":"}m8L?JL4{@u+}zvuU%6W","inputs":{"ITEMS":{"block":{"type":"concat_item","id":"AF0qbwKmW?y7AlG!KeDy","inputs":{"VALUE":{"block":{"type":"variables_get","id":"s}d`@hAUADOmAm.X:Y+n","fields":{"VAR":{"id":"St}GUM?7QwL#aN*-3$xB"}}}}},"next":{"block":{"type":"concat_item","id":"%@|Gk:|/=}=6bldIP?xT","inputs":{"VALUE":{"block":{"type":"variables_get","id":"/]X@s_dU9@{2.lyiVA]-","fields":{"VAR":{"id":"BTd+g6B$mGSNLcYUgz+q"}}}}}}}}}},"next":{"block":{"type":"custom_if","id":"oKy4};_U@SJ:+st|YYSw","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":")da-j3,1xfT8#jJCxf_,","fields":{"TEXT":"00"}}},"DO":{"block":{"type":"get_result_element","id":"mGJ2aK}}k*ZO/W~~lxCC","fields":{"IDNUM":1}}}},"next":{"block":{"type":"custom_if","id":"rZHwlM]ztXZ=%PR=KW[U","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"QTQC,=]+QWuNw?fiZ|A*","fields":{"TEXT":"01"}}},"DO":{"block":{"type":"get_result_element","id":"?t}p9S+Vro-6o^_j:Ajb","fields":{"IDNUM":2}}}},"next":{"block":{"type":"custom_if","id":"GnOXIofQLS3DkU8$F+5n","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"g2W:b3ufz_n,6.#Eu$*j","fields":{"TEXT":"10"}}},"DO":{"block":{"type":"get_result_element","id":"_s+4;28r$24~UJq61{=@","fields":{"IDNUM":3}}}},"next":{"block":{"type":"custom_if","id":"Bx(coHG-C{ME#4I*fl;/","inputs":{"CONDITION":{"block":{"type":"text_input_box","id":"qM+W;`b(D-9IQ1.mU@og","fields":{"TEXT":"11"}}},"DO":{"block":{"type":"get_result_element","id":"zegCV*4pkEY##S3e~.;J","fields":{"IDNUM":4}}}},"next":{"block":{"type":"wrap_post_formdata","id":"Zk3nr2RHzX/=!|PJ4-g%","fields":{"GAS_URL":"https://script.google.com/macros/s/xxxxx/exec"},"inputs":{"FORMDATA":{"block":{"type":"formdata_append","id":"}k!TnoKy|R@_;X:H~lO9","fields":{"KEY":"columnB"},"inputs":{"VALUE":{"block":{"type":"variables_get","id":"Fr7|?O]0GB%K^^!2z6Vw","fields":{"VAR":{"id":"ORnT{0$BtVzK8VJ~OLA-"}}}}},"next":{"block":{"type":"formdata_append","id":"I)f;HQw-]xukcLRE=#*v","fields":{"KEY":"columnC"},"inputs":{"VALUE":{"block":{"type":"answer_variable","id":"VHGfJ4;#XJ*~DPTbpra3"}}},"next":{"block":{"type":"formdata_append","id":"RAHdf?FqYULEbE?_;8tY","fields":{"KEY":"columnD"},"inputs":{"VALUE":{"block":{"type":"result_variable","id":"6~uL/-TlGhjOUxMjWpZ~"}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}},{"type":"dom_ready_block","id":"Z)UKWVWz#KY4R2uZCTXp","x":83,"y":82,"inputs":{"HANDLER":{"block":{"type":"hide_result_elements","id":"9V,.!%Vn^vH=K?f;!7-q"}}}}]},"variables":[{"name":"q1","id":"St}GUM?7QwL#aN*-3$xB"},{"name":"q2","id":"BTd+g6B$mGSNLcYUgz+q"},{"name":"name","id":"ORnT{0$BtVzK8VJ~OLA-"}]}}
-            }
+            { id: 1, title: "診断サイトの基本の形をつくろう", description: "文章やボタンを追加し，診断サイトの基本の形をつくろう", difficulty: "beginner", progress: 0 },
+            { id: 2, title: "回答をまとめる仕組みを作ろう", description: "回答をまとめる仕組みを作ろう", difficulty: "beginner", progress: 0 },
+            { id: 3, title: "回答に応じた診断結果を表示させよう", description: "回答に応じた診断結果を表示させよう", difficulty: "beginner", progress: 0 },
+            { id: 4, title: "画像を入れてみよう", description: "画像を入れてみよう", difficulty: "intermediate", progress: 0 },
+            { id: 5, title: "結果を集計する仕組みを作ろう", description: "結果を集計する仕組みを作ろう", difficulty: "intermediate", progress: 0 },
+            { id: 6, title: "完成系", description: "改造してみよう", difficulty: "advanced", progress: 0 },
+            { id: 7, title: "自由制作", description: "自由にオリジナルの診断サイトを作ってみよう", difficulty: "advanced", progress: 0 }
         ];
+
+        // 画像モーダル機能
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        // Escキーでモーダルを閉じる
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
 
         // チャプターを開始
         function startChapter(chapterId) {
-            const chapter = chapters.find(c => c.id === chapterId);
-            if (chapter) {
-                sessionStorage.setItem('currentChapter', JSON.stringify(chapter));
+            const chapterTitles = {
+                1: "診断サイトの基本の形をつくろう",
+                2: "回答をまとめる仕組みを作ろう", 
+                3: "回答に応じた診断結果を表示させよう",
+                4: "画像を入れてみよう",
+                5: "結果を集計する仕組みを作ろう",
+                6: "完成系（改造してみよう）",
+                7: "自由制作"
+            };
+            
+            const title = chapterTitles[chapterId] || "チャプター";
+            
+            if (confirm(`チャプター${chapterId}を開始しますか？\n\n${title}\n\nブロックプログラミング環境に移動します。`)) {
+                // 現在のワークスペース状態をダウンロード
+                downloadCurrentWorkspace();
+                
+                sessionStorage.setItem('selectedChapterId', chapterId.toString());
                 window.location.href = 'editor.html';
             }
+        }
+
+        // 現在のワークスペース状態をJSONでダウンロードする関数
+        function downloadCurrentWorkspace() {
+            try {
+                // 現在のチャプターIDを取得
+                const currentChapterId = sessionStorage.getItem('selectedChapterId');
+                
+                if (currentChapterId) {
+                    // チャプターごとに保存されたワークスペース状態を取得
+                    const savedState = localStorage.getItem(`chapter_${currentChapterId}_blocks`);
+                    
+                    // 状態が存在する場合のみダウンロード
+                    if (savedState) {
+                        const state = JSON.parse(savedState);
+
+                        // 現在の日時を取得してフォーマット
+                        const now = new Date();
+                        const pad = (n) => n.toString().padStart(2, '0');
+                        const timestamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+
+                        // ファイル名にチャプター番号とタイムスタンプを付加
+                        const fileName = `chapter${currentChapterId}_workspace_${timestamp}.json`;
+
+                        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = fileName;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                        
+                        console.log(`チャプター${currentChapterId}のワークスペース状態をダウンロードしました`);
+                    } else {
+                        console.log('保存されたワークスペース状態が見つかりませんでした');
+                    }
+                }
+            } catch (error) {
+                console.error('ワークスペースのダウンロードでエラーが発生しました:', error);
+            }
+        }
+
+        // サンプル表示
+        function showSample() {
+            window.location.href = 'sample.html';
+        }
+
+        // 操作説明表示
+        function showGuide() {
+            window.open('help.html', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
         }</script></body></html>
